@@ -1,9 +1,15 @@
+<<<<<<< HEAD
 #include <curses.h>
 #include <stdio.h>
+=======
+
+#include <curses.h>
+>>>>>>> 234cc58620fd3e36cda9afced0e6400086884e6d
 #include <stdlib.h>
 #include <unistd.h>
 
 #include "ai.h"
+<<<<<<< HEAD
 #include "calc.h"
 #include "fitness.h"
 #include "globals.h"
@@ -20,6 +26,21 @@ void draw_menu_window(WINDOW *win, char *menu_title, char *menu_options[],
   int width = 105,
       height = 20; // Define the frame width/height for the content area
 
+=======
+#include "globals.h"
+#include "users.h"
+#include "utils.h"
+#include "menu.h"
+
+
+
+// Function to draw the menu window layout
+void draw_menu_window(WINDOW *win, char *menu_title, char *menu_options[],
+                      int selected_option, int menu_option_count) {
+  int width = 105,
+      height = 20; // Define the frame width/height for the content area
+
+>>>>>>> 234cc58620fd3e36cda9afced0e6400086884e6d
   // Draw the border with dark blue color
   wattron(win, COLOR_PAIR(6)); // Use dark blue for border color
   wborder(win, ACS_VLINE, ACS_VLINE, ACS_HLINE, ACS_HLINE, ACS_ULCORNER,
@@ -38,7 +59,11 @@ void draw_menu_window(WINDOW *win, char *menu_title, char *menu_options[],
   mvwaddch(win, 2, width + 4, ACS_RTEE); // Connect to right border
   wattroff(win, COLOR_PAIR(6));
 
+<<<<<<< HEAD
   // Display the menu options
+=======
+// Display the menu options
+>>>>>>> 234cc58620fd3e36cda9afced0e6400086884e6d
   wattron(win, COLOR_PAIR(1));
   for (int i = 0; i < menu_option_count; i++) {
     if (i == selected_option) {
@@ -71,7 +96,14 @@ void draw_menu_window(WINDOW *win, char *menu_title, char *menu_options[],
 
   wrefresh(win); // Refresh window to reflect changes
 }
+int menu_system() {
+  char *menu_title = "MAIN MENU";
+  char *menu_options[] = {"1. Ask OllamaAI", "2. Fitness & Nutrition Tracker",
+                          "3. Quit"};
+  int menu_option_count = sizeof(menu_options) / sizeof(menu_options[0]);
+  int selected_option = 0;
 
+<<<<<<< HEAD
 int menu_system() {
   char *menu_title = "MAIN MENU";
   char *menu_options[] = {"1. Ask OllamaAI", "2. Nutrition Tracker",
@@ -87,6 +119,16 @@ int menu_system() {
   keypad(stdscr, TRUE); // Enable arrow keys for stdscr
   curs_set(0);          // Hide cursor
 
+=======
+  // Initialize ncurses
+  initscr();
+  start_color(); // Enable color functionality
+  cbreak();
+  noecho();
+  keypad(stdscr, TRUE); // Enable arrow keys for stdscr
+  curs_set(0);          // Hide cursor
+
+>>>>>>> 234cc58620fd3e36cda9afced0e6400086884e6d
   // Initialize colors
   init_pair(1, COLOR_YELLOW, COLOR_BLACK); // Color for menu options
   init_pair(2, COLOR_CYAN, COLOR_BLACK);   // Header color
@@ -106,7 +148,11 @@ int menu_system() {
   // Non-blocking input
   nodelay(win, TRUE); // Do not block input waiting for a keypress
 
+<<<<<<< HEAD
   int ch;
+=======
+int ch;
+>>>>>>> 234cc58620fd3e36cda9afced0e6400086884e6d
   while (1) {
     draw_menu_window(win, menu_title, menu_options, selected_option,
                      menu_option_count);
@@ -131,6 +177,7 @@ int menu_system() {
         ai_draw_prompt();
         break;
       case 1:
+<<<<<<< HEAD
         // Nutrition Tracker
         mvwprintw(win, height - 2, 2, "Nutrition Tracker selected...");
         wrefresh(win);
@@ -155,6 +202,17 @@ int menu_system() {
         display_progress_menu(cal_consumed,cal_spent);
         return 0;
       case 4:
+=======
+        // Fitness & Nutrition Tracker
+        mvwprintw(win, height - 2, 2, "Fitness Tracker selected...");
+        wrefresh(win);
+        sleep(3);  // Add sleep(3) here to wait before drawing users menu
+        draw_users_menu();
+        wrefresh(win);
+        sleep(1);  
+        break;
+      case 2:
+>>>>>>> 234cc58620fd3e36cda9afced0e6400086884e6d
         // Quit
         delwin(win);
         endwin();
